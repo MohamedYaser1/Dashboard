@@ -18,5 +18,10 @@ class Posts extends Model
         'active'
     ];  
 
+    public function category()
+    {
+        // assuming you have a state_id in your customers table
+        return $this->belongsTo(Category::class, 'Category_id', 'id');
+    }
     
 }

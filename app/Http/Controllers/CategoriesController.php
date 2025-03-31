@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\Cities;
+use App\Models\Countries;
+use App\Models\Posts;
+use App\Models\Users;
 use Illuminate\Validation\ValidationException;
 
 class CategoriesController extends Controller
@@ -67,7 +71,15 @@ class CategoriesController extends Controller
 
     public function show(string $id)
     {
-        //
+
+        $users = Users::all();
+        $posts = Posts::all();
+        $countries = Countries::all();
+        $cities = Cities::all(); 
+        $category = Category::find($id);
+        $categories = Category::all();
+
+        return view('categories.show', ['posts'=>$posts, 'users'=>$users, 'countries'=>$countries, 'cities'=>$cities, 'category'=>$category, 'categories'=>$categories]);
     }
 
     /**

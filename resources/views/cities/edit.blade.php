@@ -3,6 +3,10 @@
 Update Cities
 @endsection
 
+@section('cities')
+active
+@endsection
+
 @section('body')
 
 
@@ -34,8 +38,9 @@ Update Cities
             <select class="form-select" style="width: 200px;" aria-label="Default select example" name="select">
                 <option selected value="null">Select One</option>
                 @foreach ($country as $countryinfo)
-                <option value="{{ $countryinfo->id }}">{{ $countryinfo->name }}</option>
-                @endforeach
+                <option value="{{ $countryinfo->id }}" @if ($city->country_id == $countryinfo->id)
+                    {{'selected'}}
+                    @endif>{{ $countryinfo->name }}</option> @endforeach
             </select>
         </div>
 

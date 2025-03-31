@@ -4,6 +4,10 @@
 Add User
 @endsection
 
+@section('posts')
+active
+@endsection
+
 @section('body')
 
 
@@ -79,9 +83,10 @@ Add User
                 <div class="row mt-2" style="width: 300px;">
                     <select class="form-select" style="width: 200px;" aria-label="Default select example"
                         name="select_category">
-                        <option selected value="null">Select Category</option>
                         @foreach ($categories as $categoryinfo)
-                        <option value="{{ $categoryinfo->id }}">{{ $categoryinfo->name }}</option>
+                        <option value="{{ $categoryinfo->id }}" @if ($post->category_id == $categoryinfo->id)
+                            {{'selected'}}
+                            @endif>{{ $categoryinfo->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -89,9 +94,10 @@ Add User
                 <div class="row mt-2">
                     <select class="form-select" style="width: 200px;" aria-label="Default select example"
                         name="select_country">
-                        <option selected value="null">Select Country</option>
                         @foreach ($countries as $countryinfo)
-                        <option value="{{ $countryinfo->id }}">{{ $countryinfo->name }}</option>
+                        <option value="{{ $countryinfo->id }}" @if ($post->country_id == $countryinfo->id)
+                            {{'selected'}}
+                            @endif>{{ $countryinfo->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -99,17 +105,17 @@ Add User
                 <div class="row mt-2">
                     <select class="form-select" style="width: 200px;" aria-label="Default select example"
                         name="select_city">
-                        <option selected value="null">Select City</option>
                         @foreach ($cities as $cityinfo)
-                        <option value="{{ $cityinfo->id }}">{{ $cityinfo->name }}</option>
+                        <option value="{{ $cityinfo->id }}" @if ($post->city_id == $cityinfo->id) {{'selected'}}
+                            @endif>{{ $cityinfo->name }}</option>
                         @endforeach
                     </select>
                 </div>
 
                 <div class=" col-auto mt-3">
-                    <input type="radio" name="active" value="Yes">
+                    <input type="radio" name="active" value="Yes" @if ($post->active == 'Yes') {{'checked'}} @endif>
                     Active
-                    <input type="radio" name="active" value="No">
+                    <input type="radio" name="active" value="No" @if ($post->active == 'No') {{'checked'}} @endif>
                     Not Active
                 </div>
 

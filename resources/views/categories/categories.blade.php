@@ -72,7 +72,7 @@ active
             <tr>
                 <td>
 
-                    <div class="ms-3">
+                    <div>
                         <p class="fw-bold mb-1">{{ $category->name }}</p>
                     </div>
 
@@ -88,9 +88,14 @@ active
                 </td>
 
                 <td>
-                    <a href="#" class="btn btn-info">Show</a>
+                    <a href="{{ route('categories.show', $category->id)}}" class="btn btn-info">Show</a>
                     <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-primary">Edit</a>
-                    <a href="{{ route('categories.destroy', $category->id) }}" class="btn btn-danger">Delete</a>
+                    <form method="post" style="display: inline;"
+                        action="{{route('categories.destroy', $category->id)}}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
                 </td>
             </tr>
             @endforeach

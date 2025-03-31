@@ -38,7 +38,13 @@ class PostsController extends Controller
         $countries = Countries::all();
         $cities = Cities::all();
         $categories = Category::all();
-        return view('posts.add', ['user_id'=>$user_id, 'countries'=>$countries, 'cities'=>$cities, 'categories'=>$categories]);
+        if (Auth::user()->active == "Yes") {
+            return view('posts.add', ['user_id'=>$user_id, 'countries'=>$countries, 'cities'=>$cities, 'categories'=>$categories]);
+        }else{
+            throw ValidationException::withMessages([
+                'notactive' => "Sorry: You Can't Create Posts"
+            ]);
+        }
     }
 
     /**

@@ -1,6 +1,11 @@
 @extends('layout.main')
+
 @section('title')
 Update Countries
+@endsection
+
+@section('countries')
+active
 @endsection
 
 @section('body')

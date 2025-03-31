@@ -4,6 +4,10 @@
 Add Post
 @endsection
 
+@section('posts')
+active
+@endsection
+
 @section('body')
 
 

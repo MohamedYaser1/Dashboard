@@ -36,9 +36,10 @@ Route::middleware('auth')->controller(CategoriesController::class)->group(functi
     Route::get('/categories','index')->name('categories.index');
     Route::get('/categories/create','create')->name('categories.create');
     Route::Post('/categories','store')->name('categories.store');
+    Route::get('/categories/{category}','show')->name('categories.show');
     Route::get('/categories/{category}/edit','edit')->name('categories.edit');
     Route::Post('/categories/{category}','update')->name('categories.update');
-    Route::get('/categories/{category}','destroy')->name('categories.destroy');
+    Route::delete('/categories/{category}','destroy')->name('categories.destroy');
 });
 
 

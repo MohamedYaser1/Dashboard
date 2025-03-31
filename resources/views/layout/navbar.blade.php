@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
         <!-- Logo -->
-        <a class="navbar-brand" href="#">Dashboard</a>
+        <a class="navbar-brand" href="{{route('index')}}">Dashboard</a>
         <!-- Toggel button -->
         <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">

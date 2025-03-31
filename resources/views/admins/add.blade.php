@@ -4,6 +4,10 @@
 Add Admin
 @endsection
 
+@section('admins')
+active
+@endsection
+
 @section('body')
 
 

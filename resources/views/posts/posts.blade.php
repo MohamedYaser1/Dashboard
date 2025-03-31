@@ -11,8 +11,18 @@ active
 @section('body')
 
 @if (session('success'))
-<div class="alert alert-success w-25 container mt-2 d-flex justify-content-center mt-4">
+<div class="alert alert-success w-25 container mt-2 d-flex justify-content-center mt-4 mb-1">
     {{ session('success') }}
+</div>
+@endif
+
+@if ($errors->any())
+<div class="alert alert-danger w-25 container p-1 d-flex justify-content-center mt-4">
+    <ul class="mb-1">
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
 </div>
 @endif
 

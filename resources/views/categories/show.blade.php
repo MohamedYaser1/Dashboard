@@ -4,9 +4,10 @@
 Post
 @endsection
 
-@section('posts')
+@section('categories')
 active
 @endsection
+
 
 @section('body')
 <div class="container mt-5">
@@ -14,9 +15,14 @@ active
     <div class="row">
         <div class="col-md-8">
             <div class="row">
+                @foreach ($posts as $post)
+                @if ($post->category_id == $category->id)
+
                 <div class="col-auto w-75">
+
                     <h2>{{$post->title}}</h2>
                     <p class="fs-5">{{$post->details}}</p>
+
                     <div class="d-flex justify-content-start">
                         <p class="p-1 border border-0 rounded-2 bg-success-subtle mb-2">
                             Created By:
@@ -57,17 +63,22 @@ active
                         </p>
                     </div>
 
-
                     <a href="{{ route('posts.show', $post->id) }}" class="btn btn-success">Edit</a>
                     <form method="post" style="display: inline;" action="{{route('posts.destroy', $post->id)}}">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
+
+
+
                 </div>
                 <div class="col-auto">
-                    <img src="{{url('post_img/'.$post->img)}}" style="width: 180px;" alt="">
+                    <img src="{{url('post_img/'.$post->img)}}" style="width: 180px; margin-bottom: 20px;" alt="">
                 </div>
+                <hr>
+                @endif
+                @endforeach
             </div>
 
         </div>

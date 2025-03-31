@@ -3,6 +3,10 @@
 Update Categories
 @endsection
 
+@section('categories')
+active
+@endsection
+
 @section('body')
 
 
