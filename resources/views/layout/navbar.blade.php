@@ -46,8 +46,8 @@
 
                     @guest
                     <a href="{{route('login.show')}}" class="text-black mx-3">Login</a>
-                    <a href="{{ route('signup.show') }}" class="btn bg-success text-white px-3 py-1 rounded-3">Sign
-                        Up</a>
+                    <a href="{{ route('signup.show') }}" class="btn bg-success text-white px-3 py-1 rounded-3">Register
+                    </a>
                     @endguest
 
 

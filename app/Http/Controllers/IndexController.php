@@ -8,6 +8,8 @@ use App\Models\Cities;
 use App\Models\Countries;
 use App\Models\Posts;
 use App\Models\Users;
+use Illuminate\Support\Facades\Auth;
+
 
 class IndexController extends Controller
 {
@@ -21,7 +23,12 @@ class IndexController extends Controller
         $countries = Countries::all();
         $cities = Cities::all();
         $categories = Category::all();
-        return view('index', ['posts'=>$posts, 'users'=>$users, 'countries'=>$countries, 'cities'=>$cities, 'categories'=>$categories]);
+
+        if (Auth::user()) {
+            return view('index', ['posts'=>$posts, 'users'=>$users, 'countries'=>$countries, 'cities'=>$cities, 'categories'=>$categories]);
+        }else{
+            return view('auth.login');
+        }
     }
 
     /**

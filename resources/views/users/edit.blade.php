@@ -4,6 +4,10 @@
 Update User
 @endsection
 
+@section('users')
+active
+@endsection
+
 @section('body')
 
 
@@ -93,9 +97,9 @@ Update User
                 </div>
 
                 <div class=" col-auto mt-3">
-                    <input type="radio" name="active" value="Yes" @if ($user->active == 'Yes') {{'checked'}} @endif>
+                    <input type="radio" name="active" value="Yes" @if ($user->active == '1') {{'checked'}} @endif>
                     Active
-                    <input type="radio" name="active" value="No" @if ($user->active == 'No') {{'checked'}} @endif>
+                    <input type="radio" name="active" value="No" @if ($user->active == '0') {{'checked'}} @endif>
                     Not Active
                 </div>
 

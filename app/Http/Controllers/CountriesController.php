@@ -24,7 +24,7 @@ class CountriesController extends Controller
     public function store()
     {
         request()->validate([
-            'name' => ['required', 'min:3'],
+            'name' => 'required | min:3 | unique:countries',
         ]);
 
         $name = request()->name;
@@ -61,7 +61,7 @@ class CountriesController extends Controller
     public function update(Request $request, string $id)
     {
         request()->validate([
-            'name' => ['required', 'min:3'],
+            'name' => 'required | min:3',
         ]);
 
         $name = request()->name;

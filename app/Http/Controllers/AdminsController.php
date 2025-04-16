@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admins;
+use App\Models\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
@@ -15,8 +16,12 @@ class AdminsController extends Controller
      */
     public function index()
     {
-        $admins = Admins::all();
-        return view('admins.admins', ['admins'=>$admins]);    }
+        /* $admins = Admins::all();
+        return view('admins.admins', ['admins'=>$admins]);  */   
+
+        $admins = Users::all();
+        return view('admins.admins', ['admins'=>$admins]);
+    }
 
     /**
      * Show the form for creating a new resource.

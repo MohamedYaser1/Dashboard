@@ -31,6 +31,7 @@ active
         <tbody>
 
             @foreach ($admins as $admin)
+            @if ($admin->usertype == '1')
             <tr>
                 <td>
                     <p class="fw-bold mb-1">{{ $admin->name }}</p>
@@ -58,6 +59,7 @@ active
 
                 </td>
             </tr>
+            @endif
             @endforeach
 
 

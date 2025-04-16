@@ -17,7 +17,6 @@ active
 
         <h2 class="text-center">Create Post</h2>
 
-
         @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -68,11 +67,12 @@ active
 
                 <div class="row mt-3" style="width: 300px;">
                     <input type="text" name="title" id="TextInput" class="form-control" placeholder="Enter Title"
-                        value="">
+                        value="{{ old('title') }}">
                 </div>
 
                 <div class="row my-2" style="width: 300px;">
-                    <textarea class="form-control" name="details" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <textarea class="form-control" name="details" id="exampleFormControlTextarea1"
+                        rows="3">{{ old("details") }}</textarea>
                 </div>
 
                 <div class="row my-3" style="width: 300px;">
@@ -82,7 +82,7 @@ active
                 <div class="row mt-2" style="width: 300px;">
                     <select class="form-select" style="width: 200px;" aria-label="Default select example"
                         name="select_category">
-                        <option selected>Select Category</option>
+                        <option selected value="">Select Category</option>
                         @foreach ($categories as $categoryinfo)
                         <option value="{{ $categoryinfo->id }}">{{ $categoryinfo->name }}</option>
                         @endforeach
@@ -92,7 +92,7 @@ active
                 <div class="row mt-2">
                     <select class="form-select" style="width: 200px;" aria-label="Default select example"
                         name="select_country">
-                        <option selected>Select Country</option>
+                        <option selected value="">Select Country</option>
                         @foreach ($countries as $countryinfo)
                         <option value="{{ $countryinfo->id }}">{{ $countryinfo->name }}</option>
                         @endforeach
@@ -102,7 +102,7 @@ active
                 <div class="row mt-2">
                     <select class="form-select" style="width: 200px;" aria-label="Default select example"
                         name="select_city">
-                        <option selected>Select City</option>
+                        <option selected value="">Select City</option>
                         @foreach ($cities as $cityinfo)
                         <option value="{{ $cityinfo->id }}">{{ $cityinfo->name }}</option>
                         @endforeach
@@ -110,9 +110,9 @@ active
                 </div>
 
                 <div class=" col-auto mt-3">
-                    <input type="radio" name="active" value="Yes">
+                    <input type="radio" name="active" value="1">
                     Active
-                    <input type="radio" name="active" value="No">
+                    <input type="radio" name="active" value="0">
                     Not Active
                 </div>
 

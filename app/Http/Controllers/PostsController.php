@@ -9,6 +9,7 @@ use App\Models\Posts;
 use App\Models\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 
 
@@ -38,7 +39,7 @@ class PostsController extends Controller
         $countries = Countries::all();
         $cities = Cities::all();
         $categories = Category::all();
-        if (Auth::user()->active == "Yes") {
+        if (Auth::user()->active == "1") {
             return view('posts.add', ['user_id'=>$user_id, 'countries'=>$countries, 'cities'=>$cities, 'categories'=>$categories]);
         }else{
             throw ValidationException::withMessages([
@@ -53,14 +54,16 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|min:3',
+            'title' => 'required|min:3 | unique:posts',
             'details' => 'required|max:254',
             'img' => 'mimes:png,jpg,jpeg',
-            'select_category' => 'required',
+            'select_category' => 'required|not_in:0',
             'select_country' => 'required',
             'select_city' => 'required',
             'active' => 'required',
         ]);
+
+        
 
         $title = request()->title;
         $details = request()->details;
@@ -77,7 +80,28 @@ class PostsController extends Controller
             $path = 'post_img/';
             
             $img->move($path, $img_name);
-        }        
+        }  
+        
+        Session::flash('success', 'The Blog is saved successfully');
+
+        
+        
+        /* if ($select_category == 'null' ) {
+            return redirect()->back()->with('success', 'Post Added Successfully');
+        }
+        elseif ($select_country == 'null' ) 
+        {
+            throw ValidationException::withMessages([
+                'select' => 'Sorry: You Must Select Country'
+            ]);
+        }
+        elseif ($select_city == 'null' ) 
+        {
+            throw ValidationException::withMessages([
+                'select' => 'Sorry: You Must Select City'
+            ]);
+        } */
+
 
         $post = new Posts();
         $post->title = $title;
@@ -90,6 +114,8 @@ class PostsController extends Controller
         $post->country_id  = $select_country;
         $post->city_id  = $select_city;
         $post->active = $active;
+
+
 
         $post->save();
 
@@ -156,21 +182,6 @@ class PostsController extends Controller
             $img->move($path, $img_name);
         } 
         
-        if ($select_category == 'null' ) {
-            throw ValidationException::withMessages([
-                'select' => 'Sorry: You Must Select Category'
-            ]);
-        }
-        if ($select_country == 'null' ) {
-            throw ValidationException::withMessages([
-                'select' => 'Sorry: You Must Select Country'
-            ]);
-        }
-        if ($select_city == 'null' ) {
-            throw ValidationException::withMessages([
-                'select' => 'Sorry: You Must Select City'
-            ]);
-        }
 
         $post = Posts::find($post);
         $post->title = $title;

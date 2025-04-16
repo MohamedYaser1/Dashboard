@@ -37,9 +37,9 @@ active
         </div> -->
 
         <div class="form-check col-auto">
-            <input type="radio" name="active" value="Yes">
+            <input type="radio" name="active" value="1">
             Active
-            <input type="radio" name="active" value="No">
+            <input type="radio" name="active" value="0">
             Not Active
         </div>
         <div class="col-auto">
@@ -78,7 +78,7 @@ active
 
                 </td>
                 <td>
-                    <p class="fw-normal mb-1">@if ($category->active == 'Yes') {{ 'Yes' }} @else {{ 'No' }} @endif</p>
+                    <p class="fw-normal mb-1">@if ($category->active == '1') {{ 'Yes' }} @else {{ 'No' }} @endif</p>
                 </td>
                 <td>
                     <p class="fw-normal mb-1">{{$category->created_at->format('M-d-Y')}}</p>

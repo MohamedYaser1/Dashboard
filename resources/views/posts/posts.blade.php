@@ -100,7 +100,7 @@ active
                     @endif
                     @endforeach
                 </td>
-                <td>{{$post->active}}</td>
+                <td>@if ($post->active == '1') {{ 'Yes' }} @else {{ 'No' }} @endif </td>
                 <td>{{$post->created_at->format('Y-m-d')}}</td>
                 <td>{{$post->updated_at->format('Y-m-d')}}</td>
                 <td>

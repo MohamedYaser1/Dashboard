@@ -32,9 +32,9 @@ active
         </div>
 
         <div class="mb-3">
-            <input <?=$category->active == "Yes" ? "checked" :""?> type="radio" name="active" value="Yes">
+            <input <?=$category->active == "1" ? "checked" :""?> type="radio" name="active" value="1">
             Yes
-            <input <?php if($category->active == "No"){echo "checked";}?> type="radio" name="active" value="No">
+            <input <?php if($category->active == "0"){echo "checked";}?> type="radio" name="active" value="0">
             No
         </div>
         <button type="submit" class="btn btn-primary w-100">Add</button>

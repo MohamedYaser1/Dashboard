@@ -36,7 +36,7 @@ class CitiesController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'name' => ['required', 'min:3'],
+            'name' => 'required | min:3 | unique:cities',
             'select' => ['required'],
         ]);
 
@@ -86,7 +86,7 @@ class CitiesController extends Controller
     public function update(Request $request, string $id)
     {
         request()->validate([
-            'name' => ['required', 'min:3'],
+            'name' => 'required | min:3',
             'select' => ['required'],
         ]);
 

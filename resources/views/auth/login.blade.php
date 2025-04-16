@@ -7,42 +7,43 @@ Login
 
 @section('body')
 
-<div class="container mt-5">
-    <h3 class="fw-blod">Login To Your Account</h3>
-    <form action="{{ route('login') }}" method="POST">
+<div class="d-flex justify-content-center">
+    <div class="mt-5 w-25 bg-success-subtle text-success-emphasis rounded-4 p-4">
+        <h3 class="fw-blod text-center">Login</h3>
+        <form action="{{ route('login') }}" method="POST">
 
-        @csrf
+            @csrf
 
-        <div class="col-4 mt-3 mb-3">
-            <div class="">
-                <label for="">Username:</label>
-                <input type="text" name="username" class="form-control mt-2" placeholder="Enter Username"
-                    value="{{ old('username') }}">
+            <div class="mt-3 mb-3">
+                <div class="">
+                    <label for="">Username:</label>
+                    <input type="text" name="username" class="form-control mt-2" placeholder="Enter Username"
+                        value="{{ old('username') }}">
+                </div>
+
+                <div class="mt-3">
+                    <label for="">Password:</label>
+                    <input type="password" name="password" class="form-control mt-2" placeholder="Enter Password">
+                </div>
+
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-success" style="width:100px">Login</button>
+                </div>
+
             </div>
 
-            <div class="mt-3">
-                <label for="">Password:</label>
-                <input type="text" name="password" class="form-control mt-2" placeholder="Enter Password">
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
-
-            <div class="mt-3">
-                <button type="submit" class="btn btn-success" style="width:100px">Login</button>
-            </div>
-
-        </div>
-
-        @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
+            @endif
 
 
-    </form>
+        </form>
+    </div>
 </div>
-
 @endsection

@@ -38,20 +38,21 @@ class UsersController extends Controller
     {
         request()->validate([
             'name' => ['required', 'min:3'],
-            'username' => ['required'],
+            'username' => 'required | unique:users',
             'password' => 'required|string|min:5|confirmed',
             'password_confirmation' => 'required|min:5',
-            'email' => ['required', 'email:rfc'],
+            'email' => 'required | email:rfc | unique:users,email_address',
             'active' => ['required'],
         ]);
 
-        
+
         $name = request()->name;
         $username = request()->username;
         $password = Hash::make(request()->password);
         $email = request()->email;
         $active = request()->active;
-        
+        $usertype = request()->usertype;
+
         
         /* $select_county = request()->select_county;
         $select_city = request()->select_city; */
@@ -69,7 +70,8 @@ class UsersController extends Controller
         $user->password = $password;
         $user->email_address = $email;
         $user->active = $active;
-        
+        $user->usertype = $usertype;
+
         $user->save();
 
         return to_route('users.index');
@@ -99,10 +101,10 @@ class UsersController extends Controller
     {
         request()->validate([
             'name' => ['required', 'min:3'],
-            'username' => ['required'],
+            'username' => 'required',
             'password' => 'required|string|min:5|confirmed',
             'password_confirmation' => 'required|min:5',
-            'email' => ['required', 'email:rfc'],
+            'email' => 'required | email:rfc',
             'active' => ['required'],
         ]);
 

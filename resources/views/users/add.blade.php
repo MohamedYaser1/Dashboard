@@ -4,6 +4,10 @@
 Add User
 @endsection
 
+@section('users')
+active
+@endsection
+
 @section('body')
 
 
@@ -69,12 +73,12 @@ Add User
 
                 <div class="row mt-3" style="width: 300px;">
                     <input type="text" name="name" id="TextInput" class="form-control" placeholder="Enter Name"
-                        value="">
+                        value="{{ old('name') }}">
                 </div>
 
                 <div class="row mt-2" style="width: 300px;">
                     <input type="text" name="username" id="TextInput" class="form-control" placeholder="Enter username"
-                        value="">
+                        value="{{ old('username') }}">
                 </div>
 
                 <div class="row mt-2" style="width: 300px;">
@@ -89,13 +93,13 @@ Add User
 
                 <div class="row mt-2" style="width: 300px;">
                     <input type="text" name="email" id="TextInput" class="form-control"
-                        placeholder="Enter Email Address" value="">
+                        placeholder="Enter Email Address" value="{{ old('email') }}">
                 </div>
 
                 <div class=" col-auto mt-3">
-                    <input type="radio" name="active" value="Yes">
+                    <input type="radio" name="active" value="1">
                     Active
-                    <input type="radio" name="active" value="No">
+                    <input type="radio" name="active" value="0">
                     Not Active
                 </div>
 

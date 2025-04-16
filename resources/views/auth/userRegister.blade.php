@@ -8,7 +8,7 @@ Register
 @section('body')
 
 <div class="container mt-5">
-    <h3 class="fw-blod">Sign Up To Account</h3>
+    <h3 class="fw-blod">User Register</h3>
     <form action="{{ route('signup') }}" method="POST">
 
         @if ($errors->any())
@@ -51,6 +51,9 @@ Register
                 <label for="">Confirm Password:</label>
                 <input type="password" name="password_confirmation" class="form-control mt-2"
                     placeholder="Confirm Password">
+            </div>
+            <div class="mt-3">
+                <input type="hidden" name="password_confirmation" class="form-control mt-2" value="1">
             </div>
 
             <div class="mt-3">

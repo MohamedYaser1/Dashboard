@@ -39,7 +39,7 @@ active
         <div class="col-md-8">
             @foreach ($posts as $post)
             @foreach ($categories as $category)
-            @if ($post->category_id == $category-> id && $category->active == "Yes" && $post->active == 'Yes')
+            @if ($post->category_id == $category-> id && $category->active == "1" && $post->active == '1')
 
             <div class="post">
                 <img src="post_img/{{ $post->img }}" style="width: 200px;" alt="">

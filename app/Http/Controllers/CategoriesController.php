@@ -39,7 +39,7 @@ class CategoriesController extends Controller
     {
 
         request()->validate([
-            'name' => ['required', 'min:3'],
+            'name' => 'required | min:3 | unique:categories',
         ]);
 
         $name = request()->name;
@@ -100,7 +100,7 @@ class CategoriesController extends Controller
     public function update(Request $request, string $id)
     {
         request()->validate([
-            'name' => ['required', 'min:3'],
+            'name' => 'required | min:3',
         ]);
 
         $name = request()->name;

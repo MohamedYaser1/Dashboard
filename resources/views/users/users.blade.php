@@ -34,6 +34,8 @@ active
         <tbody>
 
             @foreach ($users as $user)
+            @if ($user->usertype == '0')
+
             <tr>
                 <td>
                     <div class="">
@@ -55,7 +57,7 @@ active
 
                 <td>
                     <div class="">
-                        <p class=" mb-1">{{ $user->active }}</p>
+                        <p class=" mb-1">@if ($user->active == '1') {{ 'Yes' }} @else {{ 'No' }} @endif</p>
                     </div>
                 </td>
 
@@ -69,9 +71,10 @@ active
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
 
-
                 </td>
             </tr>
+
+            @endif
             @endforeach
 
 

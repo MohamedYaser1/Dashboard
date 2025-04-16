@@ -17,7 +17,7 @@ class AuthenticationController extends Controller
 
     public function showSignup()
     {
-        return view('auth.signup');
+        return view('auth.register');
         
     }
 
@@ -42,17 +42,18 @@ class AuthenticationController extends Controller
 
         request()->validate([
             'name' => ['required', 'min:3'],
-            'username' => ['required'],
+            'username' => 'required | unique:users',
             'password' => 'required|string|min:5|confirmed',
             'password_confirmation' => 'required|min:5',
             'email_address' => ['required', 'email:rfc']
         ]);
 
-        $all = $request->all();
+        //$all = $request->all();
         $name = request()->name;
         $username = request()->username;
         $password = Hash::make(request()->password);
         $email_address = request()->email_address;
+        $usertype = request()->usertype;
 
         
         //dd($all);
@@ -66,6 +67,7 @@ class AuthenticationController extends Controller
         $user->username = $username;
         $user->password = $password;
         $user->email_address = $email_address;
+        $user->usertype = $usertype;
         //dd($all);
 
         
@@ -92,7 +94,7 @@ class AuthenticationController extends Controller
         {
             $request->session()->regenerate();
 
-            return redirect()->route('index')->with('message', 'You Are Loged in Successfully');
+            return redirect()->route('index');
         }
 
         throw ValidationException::withMessages([

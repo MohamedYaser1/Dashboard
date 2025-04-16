@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
+// this Unauthorized Page to inform users that he is Unauthorized
+Route::get('/unauthorizedPage', function(){
+    return view('unauthorizedPage');
+})->name('unauthorizedPage');
+
 
 /*  Route::get('/', function () {
     return view('welcome');
@@ -31,8 +36,9 @@ Route::middleware('guest')->controller(AuthenticationController::class)->group(f
 
 
 
+
 // Categories Routes
-Route::middleware('auth')->controller(CategoriesController::class)->group(function(){
+Route::middleware(['middleware' => 'admin'])->controller(CategoriesController::class)->group(function(){
     Route::get('/categories','index')->name('categories.index');
     Route::get('/categories/create','create')->name('categories.create');
     Route::Post('/categories','store')->name('categories.store');
@@ -44,7 +50,7 @@ Route::middleware('auth')->controller(CategoriesController::class)->group(functi
 
 
 // Countirs Routes
-Route::middleware('auth')->controller(CountriesController::class)->group(function(){
+Route::middleware(['middleware' => 'admin'])->controller(CountriesController::class)->group(function(){
     Route::get('/countries','index')->name('countries.index');
     Route::get('/countries/create','create')->name('countries.create');
     Route::Post('/countries','store')->name('countries.store');
@@ -54,8 +60,9 @@ Route::middleware('auth')->controller(CountriesController::class)->group(functio
 });
 
 
+
 // Cities Routes
-Route::middleware('auth')->controller(CitiesController::class)->group(function(){
+Route::middleware(['middleware' => 'admin'])->controller(CitiesController::class)->group(function(){
     Route::get('/cities', 'index')->name('cities.index');
     Route::get('/cities/create', 'create')->name('cities.create');
     Route::Post('/cities', 'store')->name('cities.store');
@@ -66,7 +73,7 @@ Route::middleware('auth')->controller(CitiesController::class)->group(function()
 
 
 // Users Routes
-Route::middleware('auth')->controller(UsersController::class)->group(function(){
+Route::middleware(['middleware' => 'admin'])->controller(UsersController::class)->group(function(){
     Route::get('/users', 'index')->name('users.index');
     Route::get('/users/create', 'create')->name('users.create');
     Route::Post('/users', 'store')->name('users.store');
@@ -89,7 +96,7 @@ Route::middleware('auth')->controller(PostsController::class)->group(function(){
 
 
 // Admins Routes
-Route::middleware('auth')->controller(AdminsController::class)->group(function(){
+Route::middleware(['middleware' => 'admin'])->controller(AdminsController::class)->group(function(){
     Route::get('/admins', 'index')->name('admins.index');
     Route::get('/admins/create', 'create')->name('admins.create');
     Route::Post('/admins', 'store')->name('admins.store');
