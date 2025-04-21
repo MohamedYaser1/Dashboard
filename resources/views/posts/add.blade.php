@@ -56,6 +56,10 @@ active
                 </div>
 
                 <div class="col-auto mt-3">
+                    <label for="" class="form-label">Posted By</label>
+                </div>
+
+                <div class="col-auto mt-3">
                     <label for="" class="form-label">Active</label>
                 </div>
 
@@ -82,7 +86,7 @@ active
                 <div class="row mt-2" style="width: 300px;">
                     <select class="form-select" style="width: 200px;" aria-label="Default select example"
                         name="select_category">
-                        <option selected value="">Select Category</option>
+                        <option value="">Select Category</option>
                         @foreach ($categories as $categoryinfo)
                         <option value="{{ $categoryinfo->id }}">{{ $categoryinfo->name }}</option>
                         @endforeach
@@ -90,9 +94,9 @@ active
                 </div>
 
                 <div class="row mt-2">
-                    <select class="form-select" style="width: 200px;" aria-label="Default select example"
-                        name="select_country">
-                        <option selected value="">Select Country</option>
+                    <select class="form-select" id="country-dropdown" style="width: 200px;"
+                        aria-label="Default select example" name="select_country">
+                        <option value="">Select Country</option>
                         @foreach ($countries as $countryinfo)
                         <option value="{{ $countryinfo->id }}">{{ $countryinfo->name }}</option>
                         @endforeach
@@ -100,14 +104,21 @@ active
                 </div>
 
                 <div class="row mt-2">
-                    <select class="form-select" style="width: 200px;" aria-label="Default select example"
-                        name="select_city">
-                        <option selected value="">Select City</option>
-                        @foreach ($cities as $cityinfo)
-                        <option value="{{ $cityinfo->id }}">{{ $cityinfo->name }}</option>
+                    <select class="form-select" name="select_city" id="city-dropdown" style="width: 200px;">
+                    </select>
+                </div>
+
+                <div class="row mt-2">
+                    <select class="form-select" name="posted_by" style="width: 200px;">
+                        <option value="">Select User</option>
+                        @foreach ($users as $user)
+                        @if ($user->usertype == '0')
+                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                        @endif
                         @endforeach
                     </select>
                 </div>
+
 
                 <div class=" col-auto mt-3">
                     <input type="radio" name="active" value="1">
@@ -125,6 +136,39 @@ active
 
     </form>
 
+
+
+
+
 </div>
+
+<script>
+$(document).ready(function() {
+
+    $('#country-dropdown').on('change', function() {
+        var country_id = this.value;
+        $("#city-dropdown").html('');
+        $.ajax({
+            url: "{{url('get-cities-by-country')}}",
+            type: "POST",
+            data: {
+                country_id: country_id,
+                _token: '{{csrf_token()}}'
+            },
+            dataType: 'json',
+            success: function(result) {
+                $('#city-dropdown').html('<option value="">Select City</option>');
+                $.each(result.cities, function(key, value) {
+                    $("#city-dropdown").append('<option value="' + value.id +
+                        '">' + value.name + '</option>');
+                });
+            }
+        });
+
+
+    });
+
+});
+</script>
 
 @endsection

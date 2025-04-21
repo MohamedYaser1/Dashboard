@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admins;
 use App\Models\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules\Password;
 
 
 class AdminsController extends Controller
@@ -50,6 +48,7 @@ class AdminsController extends Controller
         $username = request()->username;
         $password = Hash::make(request()->password);
         $email = request()->email;
+        $usertype = request()->usertype;
         
 
         //dd($all);
@@ -57,12 +56,13 @@ class AdminsController extends Controller
         // 2. store the data in database
         
         // this is way to save data in database
-        $admin = new Admins();
+        $admin = new Users();
 
         $admin->name = $name;
         $admin->username = $username;
         $admin->password = $password;
         $admin->email_address = $email;
+        $admin->usertype = $usertype;
         
         $admin->save();
 
@@ -72,7 +72,7 @@ class AdminsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Admins $admins)
+    public function show(Users $admins)
     {
         //
     }
@@ -82,7 +82,7 @@ class AdminsController extends Controller
      */
     public function edit(string $admin)
     {
-        $admin = Admins::find($admin);
+        $admin = Users::find($admin);
         return view('admins.edit',['admin'=>$admin]);
     }
 
@@ -111,7 +111,7 @@ class AdminsController extends Controller
         // 2. store the data in database
         
         // this is way to save data in database
-        $admin = Admins::find($admin);
+        $admin = Users::find($admin);
 
         $admin->name = $name;
         $admin->username = $username;
@@ -128,7 +128,7 @@ class AdminsController extends Controller
      */
     public function destroy(string $admins)
     {
-        $deleteId = Admins::find($admins);
+        $deleteId = Users::find($admins);
         $deleteId->delete();
 
         return to_route('admins.index');

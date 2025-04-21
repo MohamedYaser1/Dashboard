@@ -9,7 +9,7 @@ use App\Models\Posts;
 use App\Models\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\File;
 use Illuminate\Validation\ValidationException;
 
 
@@ -26,8 +26,7 @@ class PostsController extends Controller
         $cities = Cities::all();
         $categories = Category::all();
 
-
-        return view('posts.posts', ['posts'=>$posts, 'users'=>$users, 'countries'=>$countries, 'cities'=>$cities, 'categories'=>$categories]);
+        return view('posts.posts', [ 'posts'=>$posts, 'users'=>$users, 'countries'=>$countries, 'cities'=>$cities, 'categories'=>$categories]);
     }
 
     /**
@@ -35,12 +34,12 @@ class PostsController extends Controller
      */
     public function create()
     {
-        $user_id = Auth::user()->id;
+        $users = Users::all();
         $countries = Countries::all();
         $cities = Cities::all();
         $categories = Category::all();
         if (Auth::user()->active == "1") {
-            return view('posts.add', ['user_id'=>$user_id, 'countries'=>$countries, 'cities'=>$cities, 'categories'=>$categories]);
+            return view('posts.add', ['users'=>$users, 'countries'=>$countries, 'cities'=>$cities, 'categories'=>$categories]);
         }else{
             throw ValidationException::withMessages([
                 'notactive' => "Sorry: You Can't Create Posts"
@@ -60,6 +59,7 @@ class PostsController extends Controller
             'select_category' => 'required|not_in:0',
             'select_country' => 'required',
             'select_city' => 'required',
+            'posted_by' => 'required',
             'active' => 'required',
         ]);
 
@@ -71,7 +71,7 @@ class PostsController extends Controller
         $select_country = request()->select_country;
         $select_city = request()->select_city;
         $active = request()->active;
-        $user_id = Auth::user()->id;
+        $posted_by = request()->posted_by;
         $img_name = null;
         if ($request->has('img')) {
             $img = request()->file('img');
@@ -82,26 +82,6 @@ class PostsController extends Controller
             $img->move($path, $img_name);
         }  
         
-        Session::flash('success', 'The Blog is saved successfully');
-
-        
-        
-        /* if ($select_category == 'null' ) {
-            return redirect()->back()->with('success', 'Post Added Successfully');
-        }
-        elseif ($select_country == 'null' ) 
-        {
-            throw ValidationException::withMessages([
-                'select' => 'Sorry: You Must Select Country'
-            ]);
-        }
-        elseif ($select_city == 'null' ) 
-        {
-            throw ValidationException::withMessages([
-                'select' => 'Sorry: You Must Select City'
-            ]);
-        } */
-
 
         $post = new Posts();
         $post->title = $title;
@@ -109,7 +89,7 @@ class PostsController extends Controller
         if ($img_name) {
             $post->img = $img_name;
         }
-        $post->user_id = $user_id;
+        $post->user_id = $posted_by;
         $post->category_id = $select_category;
         $post->country_id  = $select_country;
         $post->city_id  = $select_city;
@@ -173,9 +153,17 @@ class PostsController extends Controller
         $active = request()->active;
         $user_id = Auth::user()->id;
         $img_name = null;
-        if ($request->has('img')) {
-            $img = request()->file('img');
 
+
+        $post = Posts::find($post);
+
+        if ($request->has('img')) {
+            $destination = 'post_img/'.$post->img;
+            if (File::exists($destination)) 
+            {
+                File::delete($destination);
+            }
+            $img = request()->file('img');
             $img_name = $img->getClientOriginalName();
             $path = 'post_img/';
             
@@ -183,7 +171,6 @@ class PostsController extends Controller
         } 
         
 
-        $post = Posts::find($post);
         $post->title = $title;
         $post->details = $details;
         if ($img_name) {
@@ -197,15 +184,28 @@ class PostsController extends Controller
 
         $post->save();
 
-        return redirect()->route('posts.index')->with('success', 'Post Added Successfully');
+        return redirect()->route('posts.index')->with('success', 'Post Updated Successfully');
 
     }
 
+    /* Display Cities by Countries using ajax */
+
+    public function getCity(Request $request)
+    {
+        $data['cities'] = Cities::where("country_id",$request->country_id)
+                    ->get(["name","id"]);
+        return response()->json($data);
+    }
+
+    
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $deleteId = Posts::find($id);
+        $deleteId->delete();
+
+        return to_route('posts.index')->with('success', 'Post Deleted Successfully');
     }
 }

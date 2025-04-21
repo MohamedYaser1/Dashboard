@@ -92,6 +92,9 @@ Route::middleware('auth')->controller(PostsController::class)->group(function(){
     Route::get('/posts/{post}/edit', 'edit')->name('posts.edit');
     Route::Post('/posts/{post}', 'update')->name('posts.update');
     Route::delete('/posts/{post}', 'destroy')->name('posts.destroy');
+
+    Route::post('get-cities-by-country',  'getCity');
+
 });
 
 
