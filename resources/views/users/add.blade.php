@@ -73,27 +73,31 @@ active
 
                 <div class="row mt-3" style="width: 300px;">
                     <input type="text" name="name" id="TextInput" class="form-control" placeholder="Enter Name"
-                        value="{{ old('name') }}">
-                </div>
-
-                <div class="row mt-2" style="width: 300px;">
-                    <input type="text" name="username" id="TextInput" class="form-control" placeholder="Enter username"
-                        value="{{ old('username') }}">
-                </div>
-
-                <div class="row mt-2" style="width: 300px;">
-                    <input type="text" name="password" id="TextInput" class="form-control" placeholder="Enter Password"
                         value="">
                 </div>
 
                 <div class="row mt-2" style="width: 300px;">
-                    <input type="text" name="password_confirmation" id="TextInput" class="form-control"
+                    <input type="text" name="username" id="TextInput" class="form-control" placeholder="Enter username"
+                        value="">
+                </div>
+
+                <div class="row mt-2" style="width: 300px;">
+                    <input type="password" name="password" id="TextInput" class="form-control"
+                        placeholder="Enter Password" value="">
+                </div>
+
+                <div class="row mt-2" style="width: 300px;">
+                    <input type="password" name="password_confirmation" id="TextInput" class="form-control"
                         placeholder="Confirm Password" value="">
                 </div>
 
                 <div class="row mt-2" style="width: 300px;">
                     <input type="text" name="email" id="TextInput" class="form-control"
-                        placeholder="Enter Email Address" value="{{ old('email') }}">
+                        placeholder="Enter Email Address" value="">
+                </div>
+
+                <div class="row mt-2" style="width: 300px;">
+                    <input type="hidden" name="usertype" id="TextInput" class="form-control" value="0">
                 </div>
 
                 <div class=" col-auto mt-3">
