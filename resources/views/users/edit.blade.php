@@ -82,12 +82,12 @@ active
                 </div>
 
                 <div class="row mt-2" style="width: 300px;">
-                    <input type="text" name="password" id="TextInput" class="form-control" placeholder="Enter Password"
-                        value="">
+                    <input type="password" name="password" id="TextInput" class="form-control"
+                        placeholder="Enter Password" value="">
                 </div>
 
                 <div class="row mt-2" style="width: 300px;">
-                    <input type="text" name="password_confirmation" id="TextInput" class="form-control"
+                    <input type="password" name="password_confirmation" id="TextInput" class="form-control"
                         placeholder="Confirm Password" value="">
                 </div>
 
