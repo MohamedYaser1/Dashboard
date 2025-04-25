@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Validation\Rules\Password;
+use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\Cities;
 use App\Models\Countries;
 use App\Models\Users;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
@@ -28,23 +28,14 @@ class UsersController extends Controller
         $countries = Countries::all();
         $cities = Cities::all();
 
-        return view('users.add',  ['cities'=>$cities],[ 'countries'=>$countries]);
+        return view('users.add',  ['cities'=>$cities],[ 'countries'=>$countries ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        request()->validate([
-            'name' => ['required', 'min:3'],
-            'username' => 'required | unique:users',
-            'password' => 'required|string|min:5|confirmed',
-            'password_confirmation' => 'required|min:5',
-            'email' => 'required | email:rfc | unique:users,email_address',
-            'active' => ['required'],
-        ]);
-
 
         $name = request()->name;
         $username = request()->username;
@@ -52,11 +43,6 @@ class UsersController extends Controller
         $email = request()->email;
         $active = request()->active;
         $usertype = request()->usertype;
-
-        
-        /* $select_county = request()->select_county;
-        $select_city = request()->select_city; */
-        
 
         //dd($all);
 
@@ -97,17 +83,8 @@ class UsersController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $user)
+    public function update(UpdateUserRequest $request, string $user)
     {
-        request()->validate([
-            'name' => ['required', 'min:3'],
-            'username' => 'required',
-            'password' => 'required|string|min:5|confirmed',
-            'password_confirmation' => 'required|min:5',
-            'email' => 'required | email:rfc',
-            'active' => ['required'],
-        ]);
-
         
         $name = request()->name;
         $username = request()->username;

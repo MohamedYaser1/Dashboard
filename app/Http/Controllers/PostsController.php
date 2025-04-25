@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Post\StorePostRequest;
+use App\Http\Requests\Post\UpdatePostRequest;
 use App\Models\Category;
 use App\Models\Cities;
 use App\Models\Countries;
@@ -50,20 +52,8 @@ class PostsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
-        $request->validate([
-            'title' => 'required|min:3 | unique:posts',
-            'details' => 'required|max:254',
-            'img' => 'mimes:png,jpg,jpeg',
-            'select_category' => 'required|not_in:0',
-            'select_country' => 'required',
-            'select_city' => 'required',
-            'posted_by' => 'required',
-            'active' => 'required',
-        ]);
-
-        
 
         $title = request()->title;
         $details = request()->details;
@@ -75,9 +65,10 @@ class PostsController extends Controller
         $img_name = null;
         if ($request->has('img')) {
             $img = request()->file('img');
-
-            $img_name = $img->getClientOriginalName();
-            $path = 'post_img/';
+            $img_exe = $img->getClientOriginalExtension();
+            $img_name = time().'.'.$img_exe;
+            
+            $path = 'storage/post_image/';
             
             $img->move($path, $img_name);
         }  
@@ -133,17 +124,8 @@ class PostsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $post)
+    public function update(UpdatePostRequest $request, string $post)
     {
-        $request->validate([
-            'title' => 'required|min:3',
-            'details' => 'required|max:254',
-            'img' => 'mimes:png,jpg,jpeg',
-            'select_category' => 'required',
-            'select_country' => 'required',
-            'select_city' => 'required',
-            'active' => 'required',
-        ]);
 
         $title = request()->title;
         $details = request()->details;
@@ -158,14 +140,15 @@ class PostsController extends Controller
         $post = Posts::find($post);
 
         if ($request->has('img')) {
-            $destination = 'post_img/'.$post->img;
+            $destination = 'storage/post_image/'.$post->img;
             if (File::exists($destination)) 
             {
                 File::delete($destination);
             }
             $img = request()->file('img');
-            $img_name = $img->getClientOriginalName();
-            $path = 'post_img/';
+            $img_exe = $img->getClientOriginalExtension();
+            $img_name = time().'.'.$img_exe;            
+            $path = 'storage/post_image/';
             
             $img->move($path, $img_name);
         } 
@@ -204,6 +187,11 @@ class PostsController extends Controller
     public function destroy(string $id)
     {
         $deleteId = Posts::find($id);
+        $destination = 'storage/post_image/'.$deleteId->img;
+            if (File::exists($destination)) 
+            {
+                File::delete($destination);
+            }
         $deleteId->delete();
 
         return to_route('posts.index')->with('success', 'Post Deleted Successfully');

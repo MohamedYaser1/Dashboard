@@ -56,15 +56,6 @@ active
                     <label for="" class="form-label">User Activation</label>
                 </div>
 
-
-
-                <!-- <div class="col-auto mt-3">
-                    <label for="" class="form-label">Country</label>
-                </div>
-
-                <div class="col-auto mt-3">
-                    <label for="" class="form-label">City</label>
-                </div> -->
             </div>
 
 

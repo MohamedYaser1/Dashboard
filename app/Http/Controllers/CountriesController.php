@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Country\StoreCountryRequest;
+use App\Http\Requests\Country\UpdateCountryRequest;
 use App\Models\Countries;
-use Illuminate\Http\Request;
 
 class CountriesController extends Controller
 {
@@ -21,11 +22,8 @@ class CountriesController extends Controller
     }
 
 
-    public function store()
+    public function store(StoreCountryRequest $request)
     {
-        request()->validate([
-            'name' => 'required | min:3 | unique:countries',
-        ]);
 
         $name = request()->name;
 
@@ -58,11 +56,8 @@ class CountriesController extends Controller
     }
 
 
-    public function update(Request $request, string $id)
+    public function update(UpdateCountryRequest $request, string $id)
     {
-        request()->validate([
-            'name' => 'required | min:3',
-        ]);
 
         $name = request()->name;
 

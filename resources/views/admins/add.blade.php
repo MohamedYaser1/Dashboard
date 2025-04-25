@@ -59,12 +59,12 @@ active
 
                 <div class="row mt-3" style="width: 300px;">
                     <input type="text" name="name" id="TextInput" class="form-control" placeholder="Enter Name"
-                        value="">
+                        value="{{ old('name') }}">
                 </div>
 
                 <div class="row mt-2" style="width: 300px;">
                     <input type="text" name="username" id="TextInput" class="form-control" placeholder="Enter username"
-                        value="">
+                        value="{{ old('username') }}">
                 </div>
 
                 <div class="row mt-2" style="width: 300px;">
@@ -79,7 +79,7 @@ active
 
                 <div class="row mt-2" style="width: 300px;">
                     <input type="text" name="email" id="TextInput" class="form-control"
-                        placeholder="Enter Email Address" value="">
+                        placeholder="Enter Email Address" value="{{ old('email') }}">
                 </div>
 
                 <div class="row mt-2" style="width: 300px;">

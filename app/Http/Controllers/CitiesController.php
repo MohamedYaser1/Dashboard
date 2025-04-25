@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\City\StoreCityRequest;
+use App\Http\Requests\City\UpdateCityRequest;
 use App\Models\Cities;
 use App\Models\Countries;
 use Illuminate\Http\Request;
@@ -33,12 +35,8 @@ class CitiesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCityRequest $request)
     {
-        request()->validate([
-            'name' => 'required | min:3 | unique:cities',
-            'select' => ['required'],
-        ]);
 
         $name = request()->name;
         $select = request()->select;
@@ -83,12 +81,8 @@ class CitiesController extends Controller
     }
 
 
-    public function update(Request $request, string $id)
+    public function update(UpdateCityRequest $request, string $id)
     {
-        request()->validate([
-            'name' => 'required | min:3',
-            'select' => ['required'],
-        ]);
 
         $name = request()->name;
         $select = request()->select;

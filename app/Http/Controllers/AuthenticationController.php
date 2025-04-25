@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Auth\LoginFormRequest;
+use App\Http\Requests\Auth\RegisterFormRequest;
 use App\Models\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +23,7 @@ class AuthenticationController extends Controller
         
     }
 
-    public function signup(Request $request)
+    public function signup(RegisterFormRequest $request)
     {
         /* $validated = $request->validate
         ([
@@ -38,15 +40,6 @@ class AuthenticationController extends Controller
         Auth::login($user);
 
         return redirect()->route('users.index'); */
-
-
-        request()->validate([
-            'name' => ['required', 'min:3'],
-            'username' => 'required | unique:users',
-            'password' => 'required|string|min:5|confirmed',
-            'password_confirmation' => 'required|min:5',
-            'email_address' => ['required', 'email:rfc']
-        ]);
 
         //$all = $request->all();
         $name = request()->name;
@@ -79,18 +72,12 @@ class AuthenticationController extends Controller
     
     }
 
-    public function login(Request $request)
+    public function login(LoginFormRequest $request)
     {
-
-        $validated = $request->validate
-        ([
-            'username' => 'required|string|max:252',
-            'password' => 'required|string|min:5'
-        ]);
 
         //dd($validated);
 
-        if(Auth::attempt($validated))
+        if(Auth::attempt($request->validated()))
         {
             $request->session()->regenerate();
 

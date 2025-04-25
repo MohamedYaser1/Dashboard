@@ -11,7 +11,7 @@ Register
         <h3 class="fw-blod text-center">Admin Register</h3>
         <form action="{{ route('signup') }}" method="POST">
 
-            @if ($errors->any())
+            <!-- @if ($errors->any())
             <div class="alert alert-danger container p-1 d-flex justify-content-center mt-4">
                 <ul class="mb-1">
                     @foreach ($errors->all() as $error)
@@ -19,7 +19,7 @@ Register
                     @endforeach
                 </ul>
             </div>
-            @endif
+            @endif -->
 
             @csrf
 
@@ -28,29 +28,44 @@ Register
                 <div class="mt-2">
                     <label for="">Name:</label>
                     <input type="text" name="name" class="form-control mt-2" placeholder="Enter Name" {{ old('name') }}>
+                    @error('name')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="mt-3">
                     <label for="">Email Address:</label>
                     <input type="text" name="email_address" class="form-control mt-2" placeholder="Enter Email Address"
                         {{ old('email_address') }}>
+                    @error('email_address')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="mt-3">
                     <label for="">Username:</label>
                     <input type="text" name="username" class="form-control mt-2" placeholder="Enter Username"
                         {{ old('username') }}>
+                    @error('username')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="mt-3">
                     <label for="">Password:</label>
                     <input type="password" name="password" class="form-control mt-2" placeholder="Enter Password">
+                    @error('password')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="mt-3">
                     <label for="">Confirm Password:</label>
                     <input type="password" name="password_confirmation" class="form-control mt-2"
                         placeholder="Confirm Password">
+                    @error('password_confirmation')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="mt-3">
                     <input type="hidden" name="usertype" class="form-control mt-2" value="1">

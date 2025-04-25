@@ -18,7 +18,7 @@ active
         <h2 class="text-center">Create User</h2>
 
 
-        @if ($errors->any())
+        <!-- @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
                 @foreach ($errors->all() as $error)
@@ -26,7 +26,7 @@ active
                 @endforeach
             </ul>
         </div>
-        @endif
+        @endif -->
 
         @csrf
         <div class="row">
@@ -56,15 +56,6 @@ active
                     <label for="" class="form-label">User Activation</label>
                 </div>
 
-
-
-                <!-- <div class="col-auto mt-3">
-                    <label for="" class="form-label">Country</label>
-                </div>
-
-                <div class="col-auto mt-3">
-                    <label for="" class="form-label">City</label>
-                </div> -->
             </div>
 
 
@@ -73,27 +64,42 @@ active
 
                 <div class="row mt-3" style="width: 300px;">
                     <input type="text" name="name" id="TextInput" class="form-control" placeholder="Enter Name"
-                        value="">
+                        value="{{ old('name') }}">
+                    @error('name')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="row mt-2" style="width: 300px;">
                     <input type="text" name="username" id="TextInput" class="form-control" placeholder="Enter username"
-                        value="">
+                        value="{{ old('username') }}">
+                    @error('username')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="row mt-2" style="width: 300px;">
                     <input type="password" name="password" id="TextInput" class="form-control"
                         placeholder="Enter Password" value="">
+                    @error('password')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="row mt-2" style="width: 300px;">
                     <input type="password" name="password_confirmation" id="TextInput" class="form-control"
                         placeholder="Confirm Password" value="">
+                    @error('password_confirmation')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="row mt-2" style="width: 300px;">
                     <input type="text" name="email" id="TextInput" class="form-control"
-                        placeholder="Enter Email Address" value="">
+                        placeholder="Enter Email Address" value="{{ old('email') }}">
+                    @error('email')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="row mt-2" style="width: 300px;">
@@ -105,27 +111,11 @@ active
                     Active
                     <input type="radio" name="active" value="0">
                     Not Active
+                    <br>
+                    @error('active')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
-
-                <!--  <div class="row mt-3">
-                    <select class="form-select" style="width: 200px;" aria-label="Default select example"
-                        name="select_county">
-                        <option selected>Select One</option>
-                        @foreach ($countries as $countryinfo)
-                        <option value="{{ $countryinfo->id }}">{{ $countryinfo->name }}</option>
-                        @endforeach
-                    </select>
-                </div> -->
-
-                <!-- <div class="row mt-3">
-                    <select class="form-select" style="width: 200px;" aria-label="Default select example"
-                        name="select_city">
-                        <option selected>Select One</option>
-                        @foreach ($cities as $cityinfo)
-                        <option value="{{ $cityinfo->id }}">{{ $cityinfo->name }}</option>
-                        @endforeach
-                    </select>
-                </div> -->
             </div>
         </div>
 

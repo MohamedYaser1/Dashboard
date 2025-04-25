@@ -59,7 +59,7 @@ active
                 <td><?php
                         if ($post->img != null) {
                             ?>
-                    <img src="post_img/<?=$post->img?>" width="100px" alt="">
+                    <img src="storage/post_image/<?=$post->img?>" width="100px" alt="">
                     <?php
                         } else {
                             ?>

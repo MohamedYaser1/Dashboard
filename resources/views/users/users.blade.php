@@ -17,9 +17,6 @@ active
 
 <!-- Table to Display cities -->
 <div class="container" style="margin-top: 40px;">
-    <!-- <div class="d-flex justify-content-center my-4">
-        <a href="{{ route('categories.create') }}" class="btn btn-success" style="width:120px">Create</a>
-    </div> -->
 
     <table class=" table align-middle mb-0 bg-white">
         <thead class="bg-light">

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Admin\StoreAdminRequest;
+use App\Http\Requests\Admin\UpdateAdminRequest;
 use App\Models\Users;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -33,16 +34,8 @@ class AdminsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreAdminRequest $request)
     {
-        request()->validate([
-            'name' => ['required', 'min:3'],
-            'username' => ['required'],
-            'password' => 'required|string|min:5|confirmed',
-            'password_confirmation' => 'required|min:5',
-            'email' => ['required', 'email:rfc']
-        ]);
-
         
         $name = request()->name;
         $username = request()->username;
@@ -89,16 +82,8 @@ class AdminsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $admin)
+    public function update(UpdateAdminRequest $request, string $admin)
     {
-        request()->validate([
-            'name' => ['required', 'min:3'],
-            'username' => ['required'],
-            'password' => 'required|string|min:5|confirmed',
-            'password_confirmation' => 'required|min:5',
-            'email' => ['required', 'email:rfc']
-        ]);
-
         
         $name = request()->name;
         $username = request()->username;

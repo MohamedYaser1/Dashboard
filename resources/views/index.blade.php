@@ -42,7 +42,7 @@ active
             @if ($post->category_id == $category-> id && $category->active == "1" && $post->active == '1')
 
             <div class="post">
-                <img src="post_img/{{ $post->img }}" style="width: 200px;" alt="">
+                <img src="storage/post_image/{{ $post->img }}" style="width: 200px;" alt="">
                 <h3 class="mt-4">{{$post->title}}</h3>
                 <p>{{$post->details}}</p>
 

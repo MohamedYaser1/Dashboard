@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\Category\StoreCategoryRequest;
+use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Models\Category;
 use App\Models\Cities;
 use App\Models\Countries;
@@ -35,12 +36,8 @@ class CategoriesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-
-        request()->validate([
-            'name' => 'required | min:3 | unique:categories',
-        ]);
 
         $name = request()->name;
         $active = request()->active;
@@ -97,11 +94,8 @@ class CategoriesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateCategoryRequest $request, string $id)
     {
-        request()->validate([
-            'name' => 'required | min:3',
-        ]);
 
         $name = request()->name;
         $active = request()->active;

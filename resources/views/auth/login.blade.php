@@ -19,11 +19,17 @@ Login
                     <label for="">Username:</label>
                     <input type="text" name="username" class="form-control mt-2" placeholder="Enter Username"
                         value="{{ old('username') }}">
+                    @error('username')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="mt-3">
                     <label for="">Password:</label>
                     <input type="password" name="password" class="form-control mt-2" placeholder="Enter Password">
+                    @error('password')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="mt-3">
@@ -32,7 +38,7 @@ Login
 
             </div>
 
-            @if ($errors->any())
+            <!-- @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
                     @foreach ($errors->all() as $error)
@@ -40,7 +46,7 @@ Login
                     @endforeach
                 </ul>
             </div>
-            @endif
+            @endif -->
 
 
         </form>
