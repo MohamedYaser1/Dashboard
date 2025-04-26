@@ -23,10 +23,10 @@ class StoreAdminRequest extends FormRequest
     {
         return [
             'name' => 'required | min:3',
-            'username' => 'required',
+            'username' => 'required | unique:users',
             'password' => 'required|string|min:5|confirmed',
             'password_confirmation' => 'required|min:5',
-            'email' => 'required | email:rfc'
+            'email' => 'required | email:rfc | unique:users,email_address',
         ];
     }
 }

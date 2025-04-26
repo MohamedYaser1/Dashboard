@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Country\StoreCountryRequest;
 use App\Http\Requests\Country\UpdateCountryRequest;
 use App\Models\Countries;
+use Illuminate\Http\Request;
 
 class CountriesController extends Controller
 {
@@ -37,7 +38,7 @@ class CountriesController extends Controller
         $country->name = $name;
         $country->save();
 
-        return to_route('countries.index');
+        return to_route('countries.index')->with('success', 'Country Created Successfully');
 
     }
 
@@ -69,15 +70,15 @@ class CountriesController extends Controller
 
         $country->save();
 
-        return to_route('countries.index');
+        return to_route('countries.index')->with('success', 'Country Updated Successfully');
     }
 
 
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        $deleteId = Countries::find($id);
+        $deleteId = Countries::find($request->country_delete_id);
         $deleteId->delete();
 
-        return to_route('countries.index');
+        return to_route('countries.index')->with('success', 'Country Deleted Successfully');
     }
 }

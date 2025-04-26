@@ -184,9 +184,9 @@ class PostsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        $deleteId = Posts::find($id);
+        $deleteId = Posts::find($request->post_delete_id);
         $destination = 'storage/post_image/'.$deleteId->img;
             if (File::exists($destination)) 
             {

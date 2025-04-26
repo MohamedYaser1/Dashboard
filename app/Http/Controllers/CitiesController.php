@@ -58,7 +58,7 @@ class CitiesController extends Controller
         $city->country_id = $select;
         $city->save();
 
-        return to_route('cities.index');
+        return to_route('cities.index')->with('success', 'City Created Successfully');
     }
 
     /**
@@ -101,16 +101,16 @@ class CitiesController extends Controller
 
         $city->save();
 
-        return to_route('cities.index');
+        return to_route('cities.index')->with('success', 'City Updated Successfully');
     }
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        $deleteId = Cities::find($id);
+        $deleteId = Cities::find($request->city_delete_id);
         $deleteId->delete();
 
-        return to_route('Cities.index');
+        return to_route('cities.index')->with('success', 'City Deleted Successfully');
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\Cities;
 use App\Models\Countries;
 use App\Models\Users;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
@@ -60,7 +61,7 @@ class UsersController extends Controller
 
         $user->save();
 
-        return to_route('users.index');
+        return to_route('users.index')->with('success', 'User Created Successfully');
     }
 
     /**
@@ -103,17 +104,18 @@ class UsersController extends Controller
         
         $user->save();
 
-        return to_route('users.index');
+        return to_route('users.index')->with('success', 'User Updated Successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $users)
+    public function destroy(Request $request)
     {
-        $deleteId = Users::find($users);
+        $deleteId = Users::find($request->user_delete_id);
         $deleteId->delete();
 
-        return to_route('users.index');
+        return to_route('users.index')->with('success', 'User Deleted Successfully');
+        
     }
 }

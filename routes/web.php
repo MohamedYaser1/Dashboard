@@ -45,7 +45,7 @@ Route::middleware(['middleware' => 'admin'])->controller(CategoriesController::c
     Route::get('/categories/{category}','show')->name('categories.show');
     Route::get('/categories/{category}/edit','edit')->name('categories.edit');
     Route::Post('/categories/{category}','update')->name('categories.update');
-    Route::delete('/categories/{category}','destroy')->name('categories.destroy');
+    Route::delete('/categories','destroy')->name('categories.destroy');
 });
 
 
@@ -56,7 +56,7 @@ Route::middleware(['middleware' => 'admin'])->controller(CountriesController::cl
     Route::Post('/countries','store')->name('countries.store');
     Route::get('/countries/{country}/edit','edit')->name('countries.edit');
     Route::Post('/countries/{country}','update')->name('countries.update');
-    Route::delete('/countries/{country}','destroy')->name('countries.destroy');
+    Route::delete('/countries','destroy')->name('countries.destroy');
 });
 
 
@@ -68,7 +68,7 @@ Route::middleware(['middleware' => 'admin'])->controller(CitiesController::class
     Route::Post('/cities', 'store')->name('cities.store');
     Route::get('/cities/{city}/edit', 'edit')->name('cities.edit');
     Route::Post('/cities/{city}', 'update')->name('cities.update');
-    Route::delete('/city/{city}', 'destroy')->name('city.destroy');
+    Route::delete('/city', 'destroy')->name('cities.destroy');
 });
 
 
@@ -79,7 +79,7 @@ Route::middleware(['middleware' => 'admin'])->controller(UsersController::class)
     Route::Post('/users', 'store')->name('users.store');
     Route::get('/users/{user}/edit', 'edit')->name('users.edit');
     Route::Post('/users/{user}', 'update')->name('users.update');
-    Route::delete('/users/{user}', 'destroy')->name('users.destroy');
+    Route::delete('/users', 'destroy')->name('users.destroy');
 });
 
 
@@ -91,7 +91,7 @@ Route::middleware('auth')->controller(PostsController::class)->group(function(){
     Route::get('/posts/{post}', 'show')->name('posts.show');
     Route::get('/posts/{post}/edit', 'edit')->name('posts.edit');
     Route::Post('/posts/{post}', 'update')->name('posts.update');
-    Route::delete('/posts/{post}', 'destroy')->name('posts.destroy');
+    Route::delete('/posts', 'destroy')->name('posts.destroy');
 
     Route::post('get-cities-by-country',  'getCity');
 
@@ -105,5 +105,5 @@ Route::middleware(['middleware' => 'admin'])->controller(AdminsController::class
     Route::Post('/admins', 'store')->name('admins.store');
     Route::get('/admins/{admin}/edit', 'edit')->name('admins.edit');
     Route::Post('/admins/{admin}', 'update')->name('admins.update');
-    Route::delete('/admins/{admin}', 'destroy')->name('admins.destroy');
+    Route::delete('/admins', 'destroy')->name('admins.destroy');
 });

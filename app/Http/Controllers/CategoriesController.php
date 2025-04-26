@@ -9,6 +9,7 @@ use App\Models\Cities;
 use App\Models\Countries;
 use App\Models\Posts;
 use App\Models\Users;
+use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 class CategoriesController extends Controller
@@ -115,17 +116,17 @@ class CategoriesController extends Controller
             'name'=>$name,
             'active'=>$request->has('active')]); */
 
-        return to_route('categories.index');
+        return to_route('categories.index')->with('success', 'Category Updated Successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        $deleteId = Category::find($id);
+        $deleteId = Category::find($request->category_delete_id);
         $deleteId->delete();
 
-        return to_route('categories.index');
+        return to_route('categories.index')->with('success', 'Category Deleted Successfully');
     }
 }

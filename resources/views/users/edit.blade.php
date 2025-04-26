@@ -88,9 +88,9 @@ active
                 </div>
 
                 <div class=" col-auto mt-3">
-                    <input type="radio" name="active" value="Yes" @if ($user->active == '1') {{'checked'}} @endif>
+                    <input type="radio" name="active" value="1" @if ($user->active == '1') {{'checked'}} @endif>
                     Active
-                    <input type="radio" name="active" value="No" @if ($user->active == '0') {{'checked'}} @endif>
+                    <input type="radio" name="active" value="0" @if ($user->active == '0') {{'checked'}} @endif>
                     Not Active
                 </div>
 

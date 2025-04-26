@@ -10,6 +10,39 @@ active
 
 @section('body')
 
+
+<div class="modal fade" id="deleteModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{route('users.destroy')}}" method="post">
+                @csrf
+                @method('DELETE')
+
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Delete User</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="user_delete_id" id="user_id">
+                    <h6>Are You Sure?</h6>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@if (session('success'))
+<div class="alert alert-success w-25 container mt-2 d-flex justify-content-center mt-4 mb-1">
+    {{ session('success') }}
+</div>
+@endif
+
+
 <div class="container mt-5 d-flex justify-content-center" style="width: 200px;">
     <a href="{{ route('users.create') }}" class="btn btn-success" style="width: 200px;">Add User</a>
 </div>
@@ -62,11 +95,14 @@ active
 
                     <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">Edit</a>
 
-                    <form method="post" style="display: inline;" action="{{route('users.destroy', $user->id)}}">
+                    <!-- <form method="post" style="display: inline;" action="{{route('users.destroy', $user->id)}}">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+                    </form> -->
+
+                    <button type="button" class="btn btn-danger delete" value="{{ $user->id }}">Delete</button>
+
 
                 </td>
             </tr>
@@ -79,5 +115,18 @@ active
     </table>
 </div>
 
+
+<script>
+$(document).ready(function() {
+    $('.delete').click(function(x) {
+        x.preventDefault();
+
+        var user_id = $(this).val();
+        $('#user_id').val(user_id);
+
+        $('#deleteModel').modal('show');
+    });
+})
+</script>
 
 @endsection

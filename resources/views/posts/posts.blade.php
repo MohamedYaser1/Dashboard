@@ -10,6 +10,33 @@ active
 
 @section('body')
 
+
+<div class="modal fade" id="deleteModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{route('posts.destroy')}}" method="post">
+                @csrf
+                @method('DELETE')
+
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Post</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="post_delete_id" id="post_id">
+                    <h6>Are You Sure You Want To Delete This Post?</h6>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
 @if (session('success'))
 <div class="alert alert-success w-25 container mt-2 d-flex justify-content-center mt-4 mb-1">
     {{ session('success') }}
@@ -107,11 +134,13 @@ active
                     <a href="{{ route('posts.show', $post->id) }}" class="btn btn-info">View</a>
                     <a href="{{route('posts.edit', $post->id)}}" class="btn btn-primary">Edit</a>
 
-                    <form method="post" style="display: inline;" action="{{route('posts.destroy', $post->id)}}">
+                    <!-- <form method="post" style="display: inline;" action="{{route('posts.destroy', $post->id)}}">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+                    </form> -->
+                    <button type="button" class="btn btn-danger delete" value="{{ $post->id }}">Delete</button>
+
 
                 </td>
             </tr>
@@ -120,6 +149,20 @@ active
 
     </table>
 </div>
+
+
+<script>
+$(document).ready(function() {
+    $('.delete').click(function(x) {
+        x.preventDefault();
+
+        var post_id = $(this).val();
+        $('#post_id').val(post_id);
+
+        $('#deleteModel').modal('show');
+    });
+})
+</script>
 
 
 @endsection

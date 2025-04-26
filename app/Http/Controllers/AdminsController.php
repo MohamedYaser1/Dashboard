@@ -6,7 +6,7 @@ use App\Http\Requests\Admin\StoreAdminRequest;
 use App\Http\Requests\Admin\UpdateAdminRequest;
 use App\Models\Users;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Http\Request;
 
 class AdminsController extends Controller
 {
@@ -59,7 +59,7 @@ class AdminsController extends Controller
         
         $admin->save();
 
-        return to_route('admins.index');
+        return to_route('admins.index')->with('success', 'Admin Created Successfully');
     }
 
     /**
@@ -105,17 +105,17 @@ class AdminsController extends Controller
         
         $admin->save();
 
-        return to_route('admins.index');
+        return to_route('admins.index')->with('success', 'Admin Updated Successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $admins)
+    public function destroy(Request $request)
     {
-        $deleteId = Users::find($admins);
+        $deleteId = Users::find($request->admin_delete_id);
         $deleteId->delete();
 
-        return to_route('admins.index');
+        return to_route('admins.index')->with('success', 'Admin Deleted Successfully');
     }
 }
